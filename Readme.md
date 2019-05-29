@@ -12,3 +12,5 @@ npm install
 ```sh
 npm start
 ```
+
+Note: make sure to add the configSettings.js to your .gitignore file.  This will contain sensative information.

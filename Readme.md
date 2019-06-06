@@ -1,6 +1,7 @@
-# JWT Server
+# NodeJS Rest API Shell.
 
-Blog post: https://hptechblogs.com/using-json-web-token-for-authentication/
+Rest API shell in NodeJS.  API will connect to MongoDB.
+Also contains JWT Bearer Tokens
 
 ## Install
 ```sh
@@ -12,4 +13,4 @@ npm install
 npm start
 ```
 
-Note: It uses hard coded data so modify it for your ORM
+Note: make sure to add the configSettings.js to your .gitignore file.  This will contain sensative information.

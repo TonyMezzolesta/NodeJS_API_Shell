@@ -1,4 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
+const bcrypt = require('bcrypt');
 
 module.exports = {
     FindUser: function(configSettings, req, callback){
@@ -14,8 +15,8 @@ module.exports = {
                 callback("Mongo Connect Error: " + err, null);
             } else {
                 //retrieve user from collection
-                var dbo = db.db("Wellness");
-                dbo.collection("User").findOne(details, function(err, result) {
+                var dbo = db.db("DB");
+                dbo.collection("Collection").findOne(details, function(err, result) {
                     if (err) {
                         callback('An error has occurred retrieving user: ' + err, null);
                     } else {
@@ -34,10 +35,13 @@ module.exports = {
         //connect to mongo to find user
         const details = { 'username': username };
 
+        //generate salt
+        const salt = bcrypt.genSalt();
+
         //create new user object
         const newUser = {
             username: username,
-            password: password
+            password: bcrypt.hash(password, salt) 
         };
 
         //find user first
@@ -56,8 +60,8 @@ module.exports = {
                         callback("Mongo Connect Error: " + err, null);
                     } else {
                         //retrieve user from collection
-                        var dbo = db.db("Wellness");
-                        dbo.collection("User").insertOne(newUser, function(err, result) {
+                        var dbo = db.db("DB");
+                        dbo.collection("Collection").insertOne(newUser, function(err, result) {
                             if (err) {
                                 callback('An error has occurred inserting user: ' + err, null);
                             } else {
